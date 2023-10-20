@@ -1,0 +1,15 @@
+name: triage
+
+on:
+  project_card:
+    types: [moved]
+
+jobs:
+  automate-issues-labels:
+    runs-on: ubuntu-latest
+    steps:
+      - name: triage labeling
+        uses: andymckay/labeler@master
+        if: ${{ contains(github.event.action, 'moved') && github.event.column_name == 'Triaged'}}
+        with:
+          add-labels: "triaged"
